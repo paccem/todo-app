@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addTodo } from '../../app/todoSlice'
+import {nanoid} from 'nanoid'
 
 
 const AddTodo = () => {
@@ -11,17 +12,22 @@ const AddTodo = () => {
 
     const onSubmitHandler = (e) => {
         e.preventDefault()
+        const newTodo = {
+            id:nanoid(),
+            text: todoItem,
+            isCompleted: false
+        }
         if (!todoItem) return;
-        dispatch(addTodo(todoItem))
+        dispatch(addTodo(newTodo))
         setTodoItem('')
     }
 
 
     return (
         <div>
-            <form onSubmit={onSubmitHandler}>
-                <div className="form-group">
-                    <label htmlFor="todoItem"> Todo item</label>
+            <form onSubmit={onSubmitHandler} className='col-sm-6 mx-auto p-4'>
+                <h2>Add Todo</h2>
+                <div className="input-group">
                     <input type="text"
                         name='todoItem'
                         placeholder='Add a todo item'
@@ -29,8 +35,8 @@ const AddTodo = () => {
                         onChange={handleChange}
                         className='form-control'
                     />
+                    <button className='btn btn-primary'>Add Todo</button>
                 </div>
-                <button className='btn btn-primary'>Add Todo</button>
             </form>
         </div>
     )

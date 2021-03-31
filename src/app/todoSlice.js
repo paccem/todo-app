@@ -2,8 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 
 const initialState = {
-    todoList: [],
-    isCompleted: false
+    todoList: []  
 }
 
 
@@ -15,13 +14,9 @@ const todoSlice = createSlice({
             state.todoList.push(action.payload)
         },
         deleteTodo : (state, action) => {
-            state.todoList.pop(action.id)
-        },
-        todoCompleted : state => {
-            return !state.isCompleted
+            state.todoList.filter((todo) => todo.id !== action.payload)
         }
-
     }
 })
 export default todoSlice.reducer
-export const { addTodo, deleteTodo, todoCompleted } = todoSlice.actions
+export const { addTodo, deleteTodo,} = todoSlice.actions
